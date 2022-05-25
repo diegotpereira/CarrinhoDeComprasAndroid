@@ -6,6 +6,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,6 +27,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.regex.Pattern;
 
 import br.com.java.carrinhodecomprasandroid.R;
 
@@ -90,12 +92,12 @@ public class CadastrarFragmento extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        jaTemUmaConta.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-//                setFragmento(new EntrarFragmento);
-            }
-        });
+//        jaTemUmaConta.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+////                setFragmento(new EntrarFragmento);
+//            }
+//        });
         fecharBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -158,6 +160,68 @@ public class CadastrarFragmento extends Fragment {
 
     }
     private boolean validacaoDeFormulario() {
+        if (TextUtils.isEmpty(fnome.getText())) {
+            fnome.setError("Por favor digite o nome");
+
+            return false;
+        }
+
+        if (TextUtils.isEmpty(lnome.getText())) {
+            lnome.setError("Por favor digite o sobrenome");
+
+            return false;
+        }
+
+        if (TextUtils.isEmpty(endereco.getText())) {
+            endereco.setError("Por favor digite o nome");
+
+            return false;
+        }
+
+        if (!ehValidCelular(telefoneNo.getText().toString())) {
+            telefoneNo.setError("Por favor digite o nome");
+
+            return false;
+        }
+
+        if (!ehValidoEmail(email.getText().toString())) {
+            email.setError("Por favor digite o nome");
+
+            return false;
+        }
+
+        if (TextUtils.isEmpty(passsword.getText())) {
+            passsword.setError("Por favor digite o nome");
+
+            return false;
+        }
+
+        if (TextUtils.isEmpty(confirmarPassword.getText())) {
+            confirmarPassword.setError("Por favor digite o nome");
+
+            return false;
+        }
+
+        if (passsword.getText().length() <= 5) {
+            passsword.setError("A senha deve ter pelo menos 6 caracteres");
+
+            return false;
+        }
+
+        if (!passsword.getText().toString().equals(confirmarPassword.getText().toString())) {
+            fnome.setError("Senhas não conferem!!!");
+
+            return false;
+        }
         return true;
+    }
+    private boolean ehValidCelular(String telefone) {
+        if (!Pattern.matches("[a-zA-Z]+", telefone)) {
+            return telefone.length() > 6 && telefone.length() <= 13;
+        }
+        return false;
+    }
+    private boolean ehValidoEmail(String email) {
+        return android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches();
     }
 }
