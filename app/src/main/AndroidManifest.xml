@@ -13,9 +13,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.CarrinhoDeComprasAndroid"
         tools:targetApi="31">
-        <activity android:name=".activity.RegistrarActivity" />
+        <activity android:name=".activity.MainActivity" />
         <activity
-            android:name=".activity.MainActivity"
+            android:name=".activity.RegistrarActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
