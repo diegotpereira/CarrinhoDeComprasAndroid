@@ -41,8 +41,8 @@ public class RegistrarActivity extends AppCompatActivity {
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if(keyCode==KeyEvent.KEYCODE_BACK){
-            CadastrarFragmento.disableCloseBtn=false;
-            CadastrarFragmento.disableCloseBtn=false;
+            CadastrarFragmento.desabilitarFecharBtn=false;
+            CadastrarFragmento.desabilitarFecharBtn=false;
 //            if(onResetPasswordFragment){
 //                onResetPasswordFragment=false;
 //                setFragment(new SigninFragment());

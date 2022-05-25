@@ -12,7 +12,7 @@
         android:layout_height="match_parent">
 
         <ImageButton
-            android:id="@+id/sign_up_close_btn"
+            android:id="@+id/cadastrar_fechar_botao"
             android:layout_width="57dp"
             android:layout_height="57dp"
             android:background="@android:color/transparent"
@@ -159,7 +159,7 @@
             app:layout_constraintTop_toBottomOf="@+id/cadastrar_senha" />
 
         <Button
-            android:id="@+id/btn_sign_up"
+            android:id="@+id/btn_cadastrar"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginLeft="16dp"
@@ -186,7 +186,7 @@
             app:layout_constraintBottom_toTopOf="@+id/already_have_an_account"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/btn_sign_up" />
+            app:layout_constraintTop_toBottomOf="@+id/btn_cadastrar" />
 
         <TextView
             android:id="@+id/already_have_an_account"
@@ -221,7 +221,7 @@
             app:layout_constraintTop_toTopOf="@+id/textView3" />
 
         <ProgressBar
-            android:id="@+id/sign_up_progressBar"
+            android:id="@+id/cadastrar_progressBar"
             style="?android:attr/progressBarStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
