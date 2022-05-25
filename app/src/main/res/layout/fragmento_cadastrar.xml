@@ -34,7 +34,7 @@
             app:layout_constraintVertical_bias="0.13" />
 
         <EditText
-            android:id="@+id/sign_up_fname"
+            android:id="@+id/cadastrar_fnome"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginLeft="16dp"
@@ -42,7 +42,7 @@
             android:autofillHints=""
             android:backgroundTint="@color/colorAccent"
             android:ems="10"
-            android:hint="@string/first_name"
+            android:hint="@string/nome"
             android:inputType="textPersonName"
             android:textColor="#FFFFFF"
             android:textColorHint="#FFFFFF"
@@ -51,7 +51,7 @@
             app:layout_constraintTop_toBottomOf="@+id/imageView" />
 
         <EditText
-            android:id="@+id/sign_up_lname"
+            android:id="@+id/cadastrar_lnome"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginLeft="16dp"
@@ -60,16 +60,16 @@
             android:autofillHints=""
             android:backgroundTint="@color/colorAccent"
             android:ems="10"
-            android:hint="@string/last_name"
+            android:hint="@string/sobrenome"
             android:inputType="textPersonName"
             android:textColor="#FFFFFF"
             android:textColorHint="#FFFFFF"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/sign_up_fname" />
+            app:layout_constraintTop_toBottomOf="@+id/cadastrar_fnome" />
 
         <EditText
-            android:id="@+id/sign_up_address"
+            android:id="@+id/cadastrar_endereco"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginLeft="16dp"
@@ -78,16 +78,16 @@
             android:autofillHints=""
             android:backgroundTint="@color/colorAccent"
             android:ems="10"
-            android:hint="@string/permanent_address"
+            android:hint="@string/endereco"
             android:inputType="textPostalAddress"
             android:textColor="#FFFFFF"
             android:textColorHint="#FFFFFF"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/sign_up_lname" />
+            app:layout_constraintTop_toBottomOf="@+id/cadastrar_lnome" />
 
         <EditText
-            android:id="@+id/sign_up_phone"
+            android:id="@+id/cadastrar_telefone"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginLeft="16dp"
@@ -96,16 +96,16 @@
             android:autofillHints=""
             android:backgroundTint="@color/colorAccent"
             android:ems="10"
-            android:hint="@string/mobile_no"
+            android:hint="@string/telefone_no"
             android:inputType="phone"
             android:textColor="#FFFFFF"
             android:textColorHint="#FFFFFF"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/sign_up_address" />
+            app:layout_constraintTop_toBottomOf="@+id/cadastrar_endereco" />
 
         <EditText
-            android:id="@+id/sign_up_email"
+            android:id="@+id/cadastrar_email"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginLeft="16dp"
@@ -120,10 +120,10 @@
             android:textColorHint="#FFFFFF"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/sign_up_phone" />
+            app:layout_constraintTop_toBottomOf="@+id/cadastrar_telefone" />
 
         <EditText
-            android:id="@+id/sign_up_password"
+            android:id="@+id/cadastrar_senha"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginLeft="16dp"
@@ -138,10 +138,10 @@
             android:textColorHint="#FFFFFF"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/sign_up_email" />
+            app:layout_constraintTop_toBottomOf="@+id/cadastrar_email" />
 
         <EditText
-            android:id="@+id/sign_up_confirm_password"
+            android:id="@+id/cadastrar_confirmar_senha"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginLeft="16dp"
@@ -150,13 +150,13 @@
             android:autofillHints=""
             android:backgroundTint="@color/colorAccent"
             android:ems="10"
-            android:hint="@string/confirm_password"
+            android:hint="@string/confirmar_password"
             android:inputType="textPassword"
             android:textColor="#FFFFFF"
             android:textColorHint="#FFFFFF"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/sign_up_password" />
+            app:layout_constraintTop_toBottomOf="@+id/cadastrar_senha" />
 
         <Button
             android:id="@+id/btn_sign_up"
@@ -167,13 +167,13 @@
             android:layout_marginRight="16dp"
             android:background="@color/btnRed"
             android:enabled="true"
-            android:text="@string/sign_up"
+            android:text="@string/cadastrar"
             android:textAllCaps="false"
             android:textColor="#FFFFFF"
             android:textSize="18sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/sign_up_confirm_password" />
+            app:layout_constraintTop_toBottomOf="@+id/cadastrar_confirmar_senha" />
 
         <TextView
             android:id="@+id/textView3"

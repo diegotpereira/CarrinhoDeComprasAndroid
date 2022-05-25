@@ -18,7 +18,13 @@ public class CadastrarFragmento extends Fragment {
 
     public static boolean disableCloseBtn=false;
     private FrameLayout parentFrameLayout;
-    private EditText fname,lname,address,email,passsword,confirmPassword,mobileNo;
+    private EditText fnome;
+    private EditText lnome;
+    private EditText endereco;
+    private EditText email;
+    private EditText passsword;
+    private EditText confirmarPassword;
+    private EditText celularNo;
 
     public CadastrarFragmento() {
         // Required empty public constructor
@@ -31,13 +37,13 @@ public class CadastrarFragmento extends Fragment {
         View view=inflater.inflate(R.layout.fragmento_cadastrar, container, false);
         parentFrameLayout=getActivity().findViewById(R.id.registrar_framelayout);
 
-        fname=view.findViewById(R.id.sign_up_fname);
-        lname=view.findViewById(R.id.sign_up_lname);
-        address=view.findViewById(R.id.sign_up_address);
-        mobileNo=view.findViewById(R.id.sign_up_phone);
-        email=view.findViewById(R.id.sign_up_email);
-        passsword=view.findViewById(R.id.sign_up_password);
-        confirmPassword=view.findViewById(R.id.sign_up_confirm_password);
+        fnome=view.findViewById(R.id.cadastrar_fnome);
+        lnome=view.findViewById(R.id.cadastrar_lnome);
+        endereco=view.findViewById(R.id.cadastrar_endereco);
+        celularNo=view.findViewById(R.id.cadastrar_telefone);
+        email=view.findViewById(R.id.cadastrar_email);
+        passsword=view.findViewById(R.id.cadastrar_senha);
+        confirmarPassword=view.findViewById(R.id.cadastrar_confirmar_senha);
 
 
         return view;
