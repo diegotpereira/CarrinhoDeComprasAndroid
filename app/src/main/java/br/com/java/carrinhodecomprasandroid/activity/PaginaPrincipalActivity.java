@@ -13,6 +13,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -30,8 +31,9 @@ public class PaginaPrincipalActivity extends AppCompatActivity implements
     private DrawerLayout drawerLayout;
     private ActionBarDrawerToggle toggle;
 
-    private static final int Principal_Fragmento = 0;
+    private static final int PRINCIPAL_FRAGMENTO = 0;
     private static final int CARRINHO_FRAGMENTO = 3;
+    private int atualFragmento = -1;
 
     NavigationView navigationView;
     private ActionBar actionBar;
@@ -69,11 +71,23 @@ public class PaginaPrincipalActivity extends AppCompatActivity implements
         nomeCompleto = navigationView.getHeaderView(0).findViewById(R.id.nav_usuario_nome);
         email = navigationView.getHeaderView(0).findViewById(R.id.nav_email_endereco);
         addPerfilIcone = navigationView.getHeaderView(0).findViewById(R.id.add_perfil_icone);
+
+        //Tarefa: mostra a caixa de diálogo de login
+        entrarDialog = new Dialog(PaginaPrincipalActivity.this);
+        entrarDialog.setContentView(R.layout.entrar_dialog);
+        entrarDialog.setCancelable(true);
+        entrarDialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
     }
 
     @Override
     protected void onStart() {
         super.onStart();
+        //Tarefa:verifica se o usuário atual está logado ou não
+        if (atualUsuario == null) {
+            navigationView.getMenu().getItem(navigationView.getMenu().size()-1).setEnabled(true);
+        } else {
+
+        }
     }
 
     @Override
@@ -102,5 +116,15 @@ public class PaginaPrincipalActivity extends AppCompatActivity implements
             });
         }
         return true;
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+
+        if (atualFragmento == PRINCIPAL_FRAGMENTO) {
+
+            getMenuInflater().inflate(R.menu.principal_pagina, menu);
+        }
+        return super.onCreateOptionsMenu(menu);
     }
 }
