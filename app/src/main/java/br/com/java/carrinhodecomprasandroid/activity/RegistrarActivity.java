@@ -12,6 +12,7 @@ import android.widget.FrameLayout;
 
 import br.com.java.carrinhodecomprasandroid.R;
 import br.com.java.carrinhodecomprasandroid.fragment.CadastrarFragmento;
+import br.com.java.carrinhodecomprasandroid.fragment.EntrarFragmento;
 
 public class RegistrarActivity extends AppCompatActivity {
 
@@ -24,18 +25,18 @@ public class RegistrarActivity extends AppCompatActivity {
         setContentView(R.layout.activity_registrar);
         frameLayout=findViewById(R.id.registrar_framelayout);
 
-        setDefaultfragment(new CadastrarFragmento());
+
         //it's for make always stable this activity in portrait mode
-//        if(RegistrarActivity.this.getResources().getConfiguration().orientation== Configuration.ORIENTATION_PORTRAIT){
-//            RegistrarActivity.this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LOCKED);
-//        }
-//        if(setCadastrarFragmento){
-//            setCadastrarFragmento=false;
-//            setDefaultfragment(new CadastrarFragmento());
-//        }
-//        else {
-//            setDefaultfragment(new SigninFragment());
-//        }
+        if(RegistrarActivity.this.getResources().getConfiguration().orientation== Configuration.ORIENTATION_PORTRAIT){
+            RegistrarActivity.this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LOCKED);
+        }
+        if(setCadastrarFragmento){
+            setCadastrarFragmento=false;
+            setDefaultfragment(new CadastrarFragmento());
+        }
+        else {
+            setDefaultfragment(new EntrarFragmento());
+        }
     }
 
     @Override

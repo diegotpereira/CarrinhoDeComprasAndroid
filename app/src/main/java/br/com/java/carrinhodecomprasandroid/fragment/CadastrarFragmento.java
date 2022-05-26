@@ -90,12 +90,12 @@ public class CadastrarFragmento extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        jaTemUmaConta.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+//        jaTemUmaConta.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
 //                setFragmento(new EntrarFragmento);
-            }
-        });
+//            }
+//        });
         fecharBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

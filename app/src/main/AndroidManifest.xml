@@ -11,11 +11,14 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.CarrinhoDeComprasAndroid"
+        android:theme="@style/AppTheme"
         tools:targetApi="31">
-        <activity android:name=".activity.MainActivity" />
         <activity
-            android:name=".activity.RegistrarActivity"
+            android:name=".activity.PaginaPrincipalActivity"
+            android:exported="false" />
+        <activity android:name=".activity.RegistrarActivity" />
+        <activity
+            android:name=".activity.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
