@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
-    <item android:id="@+id/home_search_icon"
+    <item android:id="@+id/principal_pesquisar_icone"
         android:title="Search"
         app:showAsAction="always"
         android:icon="@drawable/search_logo"/>
 
-    <item android:id="@+id/home_notification_logo"
+    <item android:id="@+id/principal_notificacao_logo"
         android:title="Download"
         app:showAsAction="always"
         android:icon="@drawable/notifications_logo"

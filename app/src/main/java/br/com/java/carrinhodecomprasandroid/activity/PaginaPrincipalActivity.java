@@ -3,6 +3,7 @@ package br.com.java.carrinhodecomprasandroid.activity;
 import static br.com.java.carrinhodecomprasandroid.activity.RegistrarActivity.setCadastrarFragmento;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
@@ -15,6 +16,7 @@ import androidx.fragment.app.FragmentTransaction;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -73,6 +75,7 @@ public class PaginaPrincipalActivity extends AppCompatActivity implements
 
         Toolbar toolbar = findViewById(R.id.toolbarPrincipalActivity);
         setSupportActionBar(toolbar);
+
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         drawerLayout = findViewById(R.id.draw_layout);
         navigationView = findViewById(R.id.nav_view);
@@ -140,7 +143,7 @@ public class PaginaPrincipalActivity extends AppCompatActivity implements
     protected void onStart() {
         super.onStart();
         //Tarefa:verifica se o usuário atual está logado ou não
-        if (atualUsuario     == null) {
+        if (atualUsuario == null) {
             navigationView.getMenu().getItem(navigationView.getMenu().size()-1).setEnabled(true);
         } else {
 
@@ -180,6 +183,18 @@ public class PaginaPrincipalActivity extends AppCompatActivity implements
             navigationView.getMenu().getItem(1).setChecked(true);
         }
     }
+
+    @Override
+    protected void onPostCreate(@Nullable Bundle savedInstanceState) {
+        super.onPostCreate(savedInstanceState);
+    }
+
+    @Override
+    public void onConfigurationChanged(@NonNull Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        toggle.onConfigurationChanged(newConfig);
+    }
+
     MenuItem menuItem;
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -209,8 +224,11 @@ public class PaginaPrincipalActivity extends AppCompatActivity implements
                     }
                 }
             });
+            return true;
+        } else {
+            entrarDialog.show();
+            return false;
         }
-        return true;
     }
 
     @Override
@@ -226,7 +244,83 @@ public class PaginaPrincipalActivity extends AppCompatActivity implements
             ImageView crachaIcone = carrinhoItem.getActionView().findViewById(R.id.cracha_icone);
             crachaIcone.setImageResource(R.drawable.white_cart);
             crachaContar = carrinhoItem.getActionView().findViewById(R.id.badge_count);
+
+            if (atualUsuario != null) {
+
+            }
+            carrinhoItem.getActionView().setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if (atualUsuario == null) {
+                        entrarDialog.show();
+                    } else {
+                        navigationView.getMenu().getItem(3).setChecked(true);
+                        irParaFragmento("Meu Carrinho", new CarrinhoFragmento(), CARRINHO_FRAGMENTO);
+                    }
+                }
+            });
+            MenuItem notificaItem = menu.findItem(R.id.principal_notificacao_logo);
+            notificaItem.setActionView(R.layout.layout_cracha);
+
+            ImageView notificaIcone = notificaItem.getActionView().findViewById(R.id.cracha_icone);
+            notificaIcone.setImageResource(R.drawable.notifications_logo);
+
+            TextView notificaContar = notificaItem.getActionView().findViewById(R.id.badge_count);
         }
         return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if (!exibirCarrinho) {
+            if (toggle.onOptionsItemSelected(item)) {
+                return true;
+            }
+        }
+        if (item.getItemId() == R.id.principal_pesquisar_icone) {
+
+            return true;
+        } else if (item.getItemId() == R.id.principal_notificacao_logo) {
+
+            return true;
+        } else if (item.getItemId() == R.id.principal_meu_carrinho) {
+            if (atualUsuario == null) {
+                entrarDialog.show();
+            } else {
+                navigationView.getMenu().getItem(3).setChecked(true);
+                irParaFragmento("Meu Carrinho", new CarrinhoFragmento(), CARRINHO_FRAGMENTO);
+            }
+            return true;
+        } else if (item.getItemId() == android.R.id.home) {
+            if (exibirCarrinho) {
+                principalActivity = null;
+                exibirCarrinho = false;
+                finish();
+
+                return true;
+            }
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onBackPressed() {
+
+        if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
+            drawerLayout.closeDrawer(GravityCompat.START);
+        } else {
+            if (atualFragmento == PRINCIPAL_FRAGMENTO) {
+                atualFragmento = -1;
+                super.onBackPressed();
+            } else {
+                if (exibirCarrinho) {
+                    principalActivity = null;
+                    exibirCarrinho = false;
+                    finish();
+                } else {
+                    irParaFragmento("Principal", new PrincipalFragmento(), PRINCIPAL_FRAGMENTO);
+                }
+            }
+        }
     }
 }
