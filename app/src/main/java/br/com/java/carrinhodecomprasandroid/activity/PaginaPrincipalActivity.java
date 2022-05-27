@@ -7,7 +7,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
+import android.app.Activity;
 import android.app.Dialog;
 import android.os.Bundle;
 import android.view.Menu;
@@ -22,6 +25,7 @@ import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseUser;
 
 import br.com.java.carrinhodecomprasandroid.R;
+import br.com.java.carrinhodecomprasandroid.fragment.PrincipalFragmento;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public class PaginaPrincipalActivity extends AppCompatActivity implements
@@ -35,13 +39,16 @@ public class PaginaPrincipalActivity extends AppCompatActivity implements
     private static final int CARRINHO_FRAGMENTO = 3;
     private int atualFragmento = -1;
 
+    public static Boolean exibirCarrinho = false;
+    public static Activity principalActivity=null;
+
     NavigationView navigationView;
     private ActionBar actionBar;
     private Dialog entrarDialog;
 
     private FirebaseUser atualUsuario;
 
-    private TextView contagemDeEmblemas;
+    private TextView crachaContar;
     private CircleImageView perfilView;
     private TextView nomeCompleto;
     private TextView email;
@@ -72,6 +79,15 @@ public class PaginaPrincipalActivity extends AppCompatActivity implements
         email = navigationView.getHeaderView(0).findViewById(R.id.nav_email_endereco);
         addPerfilIcone = navigationView.getHeaderView(0).findViewById(R.id.add_perfil_icone);
 
+        if (exibirCarrinho) {
+            principalActivity = PaginaPrincipalActivity.this;
+        } else {
+            toggle = new ActionBarDrawerToggle(this, drawerLayout, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+            drawerLayout.addDrawerListener(toggle);
+            toggle.syncState();
+            irParaFragmento("Principal", new PrincipalFragmento(), PRINCIPAL_FRAGMENTO);
+        }
+
         //Tarefa: mostra a caixa de diálogo de login
         entrarDialog = new Dialog(PaginaPrincipalActivity.this);
         entrarDialog.setContentView(R.layout.entrar_dialog);
@@ -83,7 +99,7 @@ public class PaginaPrincipalActivity extends AppCompatActivity implements
     protected void onStart() {
         super.onStart();
         //Tarefa:verifica se o usuário atual está logado ou não
-        if (atualUsuario == null) {
+        if (atualUsuario     == null) {
             navigationView.getMenu().getItem(navigationView.getMenu().size()-1).setEnabled(true);
         } else {
 
@@ -94,7 +110,21 @@ public class PaginaPrincipalActivity extends AppCompatActivity implements
     protected void onPause() {
         super.onPause();
     }
+    private void setFragmento(Fragment fragment, int fragmentoNo) {
+        if (atualFragmento != fragmentoNo) {
+            atualFragmento = fragmentoNo;
 
+            FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+//            fragmentTransaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
+            fragmentTransaction.replace(frameLayout.getId(), fragment);
+            fragmentTransaction.commit();
+        }
+    }
+    private void irParaFragmento(String titulo, Fragment fragment, int fragmentoNo) {
+        getSupportActionBar().setDisplayShowTitleEnabled(true);
+        getSupportActionBar().setTitle(titulo);
+        setFragmento(fragment, fragmentoNo);
+    }
     MenuItem menuItem;
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -110,6 +140,8 @@ public class PaginaPrincipalActivity extends AppCompatActivity implements
 
                     int id =menuItem.getItemId();
                     if (id == R.id.nav_my_mall) {
+                        irParaFragmento("Principal", new PrincipalFragmento(), PRINCIPAL_FRAGMENTO);
+                    } else {
 
                     }
                 }
@@ -124,6 +156,13 @@ public class PaginaPrincipalActivity extends AppCompatActivity implements
         if (atualFragmento == PRINCIPAL_FRAGMENTO) {
 
             getMenuInflater().inflate(R.menu.principal_pagina, menu);
+
+            MenuItem carrinhoItem = menu.findItem(R.id.principal_meu_carrinho);
+            carrinhoItem.setActionView(R.layout.layout_cracha);
+
+            ImageView crachaIcone = carrinhoItem.getActionView().findViewById(R.id.cracha_icone);
+            crachaIcone.setImageResource(R.drawable.white_cart);
+            crachaContar = carrinhoItem.getActionView().findViewById(R.id.badge_count);
         }
         return super.onCreateOptionsMenu(menu);
     }
