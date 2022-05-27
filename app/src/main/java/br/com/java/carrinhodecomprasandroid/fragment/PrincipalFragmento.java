@@ -15,8 +15,9 @@ import br.com.java.carrinhodecomprasandroid.R;
 
 public class PrincipalFragmento extends Fragment {
 
-    private RecyclerView homePageRecycleView;
-
+    private RecyclerView principalPaginaRecycleView;
+    private RecyclerView categoriaRecycleView;
+    private LinearLayoutManager linearLayout;
 
     public PrincipalFragmento() {
         // Required empty public constructor
@@ -29,11 +30,20 @@ public class PrincipalFragmento extends Fragment {
         View view = inflater.inflate(R.layout.fragmento_principal, container, false);
 
 
-        homePageRecycleView = view.findViewById(R.id.homePageRecyclerView);
+        principalPaginaRecycleView = view.findViewById(R.id.principalPaginaRecyclerView);
+
+        // define a visualização do Recycler de categorias
+        categoriaRecycleView = view.findViewById(R.id.categoriaRecyclerView);
+        linearLayout = new LinearLayoutManager(getActivity());
+        linearLayout.setOrientation(LinearLayoutManager.HORIZONTAL);
+        categoriaRecycleView.setLayoutManager(linearLayout);
+
+        // define todos os outros recyclerview
+        // carrega imagens para layout horizontal e layout de grade
         LinearLayoutManager linearLayoutManagerxyz = new LinearLayoutManager(getContext());
         linearLayoutManagerxyz.setOrientation(LinearLayoutManager.VERTICAL);
 
-        homePageRecycleView.setLayoutManager(linearLayoutManagerxyz);
+        principalPaginaRecycleView.setLayoutManager(linearLayoutManagerxyz);
         return view;
     }
 }

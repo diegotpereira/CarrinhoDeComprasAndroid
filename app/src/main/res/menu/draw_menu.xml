@@ -6,7 +6,7 @@
     <group android:checkableBehavior="single">
 
         <item
-            android:id="@+id/nav_my_mall"
+            android:id="@+id/nav_minha_loja"
             android:icon="@drawable/my_mall_home_icon"
             android:title="Home" />
 
@@ -21,7 +21,7 @@
             android:title="My Rewards" />
 
         <item
-            android:id="@+id/nav_my_cart"
+            android:id="@+id/nav_meu_carrinho"
             android:icon="@drawable/my_cart_logo"
             android:title="My Cart" />
 

@@ -9,7 +9,7 @@
     tools:context=".fragment.PrincipalFragmento">
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/catogeryRecyclerView"
+        android:id="@+id/categoriaRecyclerView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingTop="5dp"
@@ -25,10 +25,10 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/catogeryRecyclerView">
+        app:layout_constraintTop_toBottomOf="@+id/categoriaRecyclerView">
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/homePageRecyclerView"
+            android:id="@+id/principalPaginaRecyclerView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="1dp"
@@ -37,7 +37,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/catogeryRecyclerView" />
+            app:layout_constraintTop_toBottomOf="@+id/categoriaRecyclerView" />
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
     <ImageView
@@ -50,7 +50,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/refresh_layout"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/catogeryRecyclerView"
+        app:layout_constraintTop_toBottomOf="@+id/categoriaRecyclerView"
         android:contentDescription="@string/todo" />
 
     <Button
