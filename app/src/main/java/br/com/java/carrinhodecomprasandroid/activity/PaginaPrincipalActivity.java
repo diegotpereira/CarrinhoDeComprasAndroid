@@ -1,5 +1,7 @@
 package br.com.java.carrinhodecomprasandroid.activity;
 
+import static br.com.java.carrinhodecomprasandroid.activity.RegistrarActivity.setCadastrarFragmento;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.ActionBarDrawerToggle;
@@ -12,11 +14,13 @@ import androidx.fragment.app.FragmentTransaction;
 
 import android.app.Activity;
 import android.app.Dialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -25,6 +29,10 @@ import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseUser;
 
 import br.com.java.carrinhodecomprasandroid.R;
+import br.com.java.carrinhodecomprasandroid.fragment.CadastrarFragmento;
+import br.com.java.carrinhodecomprasandroid.fragment.CarrinhoFragmento;
+import br.com.java.carrinhodecomprasandroid.fragment.EntrarFragmento;
+import br.com.java.carrinhodecomprasandroid.fragment.MinhasOrdensFragmento;
 import br.com.java.carrinhodecomprasandroid.fragment.PrincipalFragmento;
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -37,10 +45,12 @@ public class PaginaPrincipalActivity extends AppCompatActivity implements
 
     private static final int PRINCIPAL_FRAGMENTO = 0;
     private static final int CARRINHO_FRAGMENTO = 3;
+    private static final int ORDENS_FRAGMENTO = 1;
     private int atualFragmento = -1;
 
     public static Boolean exibirCarrinho = false;
     public static Activity principalActivity=null;
+    public static boolean redefinirPrincipalActivity = false;
 
     NavigationView navigationView;
     private ActionBar actionBar;
@@ -81,6 +91,9 @@ public class PaginaPrincipalActivity extends AppCompatActivity implements
 
         if (exibirCarrinho) {
             principalActivity = PaginaPrincipalActivity.this;
+            drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            irParaFragmento("Meu Carrinho", new CarrinhoFragmento(), CARRINHO_FRAGMENTO);
         } else {
             toggle = new ActionBarDrawerToggle(this, drawerLayout, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
             drawerLayout.addDrawerListener(toggle);
@@ -93,6 +106,34 @@ public class PaginaPrincipalActivity extends AppCompatActivity implements
         entrarDialog.setContentView(R.layout.entrar_dialog);
         entrarDialog.setCancelable(true);
         entrarDialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+
+        Button dialogEntrarBtn = entrarDialog.findViewById(R.id.entrar_btn);
+        Button dialogCadastrarBtn = entrarDialog.findViewById(R.id.cadastrar_btn);
+
+        final Intent registrarIntent = new Intent(PaginaPrincipalActivity.this, RegistrarActivity.class);
+
+        dialogEntrarBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                EntrarFragmento.desabilitarFecharBtn =  true;
+                CadastrarFragmento.desabilitarFecharBtn = true;
+
+                entrarDialog.dismiss();
+                setCadastrarFragmento = false;
+                startActivity(registrarIntent);
+            }
+        });
+        dialogCadastrarBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                EntrarFragmento.desabilitarFecharBtn =  true;
+                CadastrarFragmento.desabilitarFecharBtn = true;
+
+                entrarDialog.dismiss();
+                setCadastrarFragmento = true;
+                startActivity(registrarIntent);
+            }
+        });
     }
 
     @Override
@@ -103,7 +144,13 @@ public class PaginaPrincipalActivity extends AppCompatActivity implements
             navigationView.getMenu().getItem(navigationView.getMenu().size()-1).setEnabled(true);
         } else {
 
+            navigationView.getMenu().getItem(navigationView.getMenu().size()-1).setEnabled(true);
         }
+        if (redefinirPrincipalActivity) {
+            redefinirPrincipalActivity = false;
+            irParaFragmento("Principal", new PrincipalFragmento(), PRINCIPAL_FRAGMENTO);
+        }
+        PaginaPrincipalActivity.this.invalidateOptionsMenu();
     }
 
     @Override
@@ -124,6 +171,14 @@ public class PaginaPrincipalActivity extends AppCompatActivity implements
         getSupportActionBar().setDisplayShowTitleEnabled(true);
         getSupportActionBar().setTitle(titulo);
         setFragmento(fragment, fragmentoNo);
+
+        invalidateOptionsMenu();
+
+        if (fragmentoNo == CARRINHO_FRAGMENTO) {
+            navigationView.getMenu().getItem(3).setChecked(true);
+        } else if (fragmentoNo == ORDENS_FRAGMENTO) {
+            navigationView.getMenu().getItem(1).setChecked(true);
+        }
     }
     MenuItem menuItem;
     @Override
@@ -139,10 +194,18 @@ public class PaginaPrincipalActivity extends AppCompatActivity implements
                     super.onDrawerClosed(drawerView);
 
                     int id =menuItem.getItemId();
-                    if (id == R.id.nav_my_mall) {
+                    if (id == R.id.nav_minha_loja) {
                         irParaFragmento("Principal", new PrincipalFragmento(), PRINCIPAL_FRAGMENTO);
                     } else {
-
+                        navigationView.getMenu().getItem(0).setChecked(false);
+                    }
+                    if (id == R.id.nav_meu_carrinho) {
+                        irParaFragmento("Meu Carrinho", new CarrinhoFragmento(), CARRINHO_FRAGMENTO);
+                    } else {
+                        navigationView.getMenu().getItem(3).setChecked(false);
+                    }
+                    if (id == R.id.nav_my_order) {
+                        irParaFragmento("Meus Pedidos", new MinhasOrdensFragmento(), ORDENS_FRAGMENTO);
                     }
                 }
             });

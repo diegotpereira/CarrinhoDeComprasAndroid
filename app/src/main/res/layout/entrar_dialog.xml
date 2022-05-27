@@ -42,7 +42,7 @@
         app:layout_constraintTop_toBottomOf="@+id/textView19">
 
         <Button
-            android:id="@+id/sign_in_btn"
+            android:id="@+id/entrar_btn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -53,7 +53,7 @@
             android:textColor="@color/colorPrimary" />
 
         <Button
-            android:id="@+id/sign_up_btn"
+            android:id="@+id/cadastrar_btn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
