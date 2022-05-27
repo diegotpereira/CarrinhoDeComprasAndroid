@@ -181,6 +181,8 @@ public class PaginaPrincipalActivity extends AppCompatActivity implements
             navigationView.getMenu().getItem(3).setChecked(true);
         } else if (fragmentoNo == ORDENS_FRAGMENTO) {
             navigationView.getMenu().getItem(1).setChecked(true);
+        } else if (fragmentoNo == PRINCIPAL_FRAGMENTO) {
+            navigationView.getMenu().getItem(0).setChecked(true);
         }
     }
 
@@ -202,7 +204,7 @@ public class PaginaPrincipalActivity extends AppCompatActivity implements
         drawerLayout.closeDrawer(GravityCompat.START);
         menuItem = item;
 
-        if (atualUsuario != null) {
+        if (atualUsuario == null) {
             drawerLayout.addDrawerListener(new DrawerLayout.SimpleDrawerListener() {
                 @Override
                 public void onDrawerClosed(View drawerView) {
