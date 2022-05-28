@@ -2,7 +2,7 @@ package br.com.java.carrinhodecomprasandroid.model;
 
 import java.util.List;
 
-public class CarrinhoItemModel {
+public class CarrinhoItemModelo {
 
     public static final int CARRINHO_ITEM = 0;
     public static final int TOTAL_QUANTIDADE = 1;
@@ -39,12 +39,12 @@ public class CarrinhoItemModel {
     private String descontoPreco;
     private boolean COD;
 
-    public CarrinhoItemModel(String produtoID, String produtoImagem,
-                             String produtoTitulo, Long cuponsGratis, String produtoPreco,
-                             String reduzidoPreco, Long produtoQuantidade, Long maxQuantidade,
-                             Long estoqueQuantidade, Long ofertasAplicadas, Long cuponsAplicados,
-                             boolean emEstoque, List<String> qtdIDs, boolean qtdErro,
-                             String selecionadoCupomId, String descontoPreco, boolean COD) {
+    public CarrinhoItemModelo(String produtoID, String produtoImagem,
+                              String produtoTitulo, Long cuponsGratis, String produtoPreco,
+                              String reduzidoPreco, Long produtoQuantidade, Long maxQuantidade,
+                              Long estoqueQuantidade, Long ofertasAplicadas, Long cuponsAplicados,
+                              boolean emEstoque, List<String> qtdIDs, boolean qtdErro,
+                              String selecionadoCupomId, String descontoPreco, boolean COD) {
         this.produtoID = produtoID;
         this.produtoImagem = produtoImagem;
         this.produtoTitulo = produtoTitulo;
@@ -207,7 +207,7 @@ public class CarrinhoItemModel {
     private int salvarMontante;
     private String entregaPreco;
 
-    public CarrinhoItemModel(int tipo) {
+    public CarrinhoItemModelo(int tipo) {
         this.tipo = tipo;
     }
 

@@ -1,6 +1,6 @@
 package br.com.java.carrinhodecomprasandroid.model;
 
-public class EnderecoModel {
+public class EnderecoModelo {
 
     private boolean selecionado;
     private String cidade;
@@ -13,9 +13,9 @@ public class EnderecoModel {
     private String alternativoCelularNo;
     private String estado;
 
-    public EnderecoModel(boolean selecionado, String cidade, String localizacao,
-                         String casaNo, String cep, String pontoReferencia, String nome,
-                         String celularNo, String alternativoCelularNo, String estado) {
+    public EnderecoModelo(boolean selecionado, String cidade, String localizacao,
+                          String casaNo, String cep, String pontoReferencia, String nome,
+                          String celularNo, String alternativoCelularNo, String estado) {
         this.selecionado = selecionado;
         this.cidade = cidade;
         this.localizacao = localizacao;
