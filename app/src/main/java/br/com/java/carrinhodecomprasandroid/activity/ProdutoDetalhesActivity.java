@@ -8,12 +8,24 @@ import androidx.viewpager.widget.ViewPager;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.tabs.TabLayout;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
+import com.google.firebase.firestore.QuerySnapshot;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import br.com.java.carrinhodecomprasandroid.R;
 
@@ -27,6 +39,7 @@ public class ProdutoDetalhesActivity extends AppCompatActivity {
     private TextView produtoPreco;
     private TextView reducaoPreco;
     private ImageView cod_indicador;
+    private TextView tv_cod_indicator;
 
 
     // descrição do produto
@@ -35,7 +48,18 @@ public class ProdutoDetalhesActivity extends AppCompatActivity {
     private String produtoDescricao;
     private String produtoOutrosDetalhes;
 
+    //
+    private FirebaseUser atualUsuario;
+
+    // variável para o ID do produto da loja
+    public static String produtoID;
+
     public static Activity produtoDetalheActivity;
+
+    private FirebaseFirestore firebaseFirestore;
+    private DocumentSnapshot documentSnapshot;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,8 +77,57 @@ public class ProdutoDetalhesActivity extends AppCompatActivity {
 
         produtoDetalhesLayout = findViewById(R.id.produto_detalhes_tablayout);
 
+        // carregar imagens do firebase
+        firebaseFirestore = FirebaseFirestore.getInstance();
+        final List<String> produtoImagens = new ArrayList<>(1);
+
+        produtoID = getIntent().getStringExtra("PRODUTO_ID");
+
+        firebaseFirestore.collection("PRODUTOS").document(produtoID)
+                .get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                        if (task.isSuccessful()) {
+                            documentSnapshot = task.getResult();
+
+                            firebaseFirestore.collection("PRODUTOS").document(produtoID)
+                                    .collection("QUANTIDADE")
+                                    .orderBy("tempo", Query.Direction.ASCENDING)
+                                    .get()
+                                    .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                                        @Override
+                                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                            if (task.isSuccessful()) {
+                                                for(long x = 1; x <= (long) documentSnapshot.get("sem_produto_imagens"); x++) {
+                                                    produtoImagens.add(documentSnapshot.get("produto_imagens_" + x).toString());
+                                                }
+                                            }
+                                        }
+                                    });
+                        }
+                    }
+                });
+
 
     }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        atualUsuario = FirebaseAuth.getInstance().getCurrentUser();
+        if (atualUsuario == null) {
+
+        }
+        if (atualUsuario != null) {
+
+        }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        return super.onCreateOptionsMenu(menu);
+    }
+
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if (item.getItemId() == android.R.id.home) {
             produtoDetalheActivity = null;
@@ -74,6 +147,7 @@ public class ProdutoDetalhesActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
+
     }
 
     @Override
