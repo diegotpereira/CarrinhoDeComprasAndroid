@@ -23,16 +23,19 @@ public class PrincipalPaginaModelo {
     private List<ListaComprasModelo> exibirTodosProdutosLista;
 
     // exibir todos produto na recyclerView
-
-    public PrincipalPaginaModelo(int tipo, String corDeFundo, List<HorizontalProdutoScrollModelo> horizontalProdutoScrollModeloLista, List<ListaComprasModelo> exibirTodosProdutosLista) {
+    public PrincipalPaginaModelo(int tipo, String titulo, String corDeFundo,
+                                 List<HorizontalProdutoScrollModelo> horizontalProdutoScrollModeloLista,
+                                 List<ListaComprasModelo> exibirTodosProdutosLista) {
         this.tipo = tipo;
+        this.titulo = titulo;
         this.corDeFundo = corDeFundo;
         this.horizontalProdutoScrollModeloLista = horizontalProdutoScrollModeloLista;
         this.exibirTodosProdutosLista = exibirTodosProdutosLista;
     }
     // exibir produtos apenas na horizontal recyclerView
 
-    public PrincipalPaginaModelo(int tipo, String titulo, String corDeFundo, List<HorizontalProdutoScrollModelo> horizontalProdutoScrollModeloLista) {
+    public PrincipalPaginaModelo(int tipo, String titulo, String corDeFundo,
+                                 List<HorizontalProdutoScrollModelo> horizontalProdutoScrollModeloLista) {
         this.tipo = tipo;
         this.titulo = titulo;
         this.corDeFundo = corDeFundo;

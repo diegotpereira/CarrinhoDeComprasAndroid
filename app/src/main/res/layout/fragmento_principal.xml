@@ -13,13 +13,13 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingTop="5dp"
-        app:layout_constraintBottom_toTopOf="@+id/refresh_layout"
+        app:layout_constraintBottom_toTopOf="@+id/atualizar_layout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-        android:id="@+id/refresh_layout"
+        android:id="@+id/atualizar_layout"
         android:layout_width="wrap_content"
         android:layout_height="600dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -48,13 +48,13 @@
         android:src="@mipmap/no_intenet_logo"
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/refresh_layout"
+        app:layout_constraintEnd_toEndOf="@+id/atualizar_layout"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/categoriaRecyclerView"
         android:contentDescription="@string/todo" />
 
     <Button
-        android:id="@+id/retry_btn"
+        android:id="@+id/tente_novamente_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
