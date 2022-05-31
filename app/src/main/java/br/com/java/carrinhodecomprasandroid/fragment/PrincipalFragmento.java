@@ -133,16 +133,14 @@ public class PrincipalFragmento extends Fragment {
                 principalPaginaAdapter = new PrincipalPaginaAdapter(listas.get(0));
                 principalPaginaAdapter.notifyDataSetChanged();
             }
+            // lista fake adapter
+            principalPaginaRecycleView.setAdapter(principalPaginaAdapter);
         } else {
             categoriaRecycleView.setVisibility(View.GONE);
             principalPaginaRecycleView.setVisibility(View.GONE);
             tenteNovamenteBtn.setVisibility(View.VISIBLE);
 
         }
-
-        // lista fake adapter
-        principalPaginaRecycleView.setAdapter(principalPaginaAdapter);
-
 
         // atualizar
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
