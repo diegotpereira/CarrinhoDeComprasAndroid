@@ -16,6 +16,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
 
@@ -30,6 +31,7 @@ import java.util.TimerTask;
 import br.com.java.carrinhodecomprasandroid.R;
 import br.com.java.carrinhodecomprasandroid.activity.ProdutoDetalhesActivity;
 import br.com.java.carrinhodecomprasandroid.model.HorizontalProdutoScrollModelo;
+import br.com.java.carrinhodecomprasandroid.model.ListaComprasModelo;
 import br.com.java.carrinhodecomprasandroid.model.PrincipalPaginaModelo;
 import br.com.java.carrinhodecomprasandroid.model.SliderModelo;
 
@@ -69,6 +71,10 @@ public class PrincipalPaginaAdapter extends RecyclerView.Adapter {
                 View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.sliding_ad_layout, parent, false);
                 return new BannerSliderViewHolder(view);
 
+            case PrincipalPaginaModelo.HORIZONTAL_PRODUTO_EXIBIR:
+                View horizontalView = LayoutInflater.from(parent.getContext()).inflate(R.layout.horizontal_scroll_layout, parent, false);
+                return new HorizontalProdutoViewHolder(horizontalView);
+
             case PrincipalPaginaModelo.GRID_PRODUTO_EXIBIR:
                 View gridHorizontalView = LayoutInflater.from(parent.getContext()).inflate(R.layout.grid_produto_layout, parent, false);
                 return new GridProdutoViewHolder(gridHorizontalView);
@@ -81,13 +87,24 @@ public class PrincipalPaginaAdapter extends RecyclerView.Adapter {
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         switch (principalPaginaModeloLista.get(position).getTipo()) {
+            case BANNER_SLIDER:
+                List<SliderModelo> sliderModeloLista = principalPaginaModeloLista.get(position).getSliderModels();
+                ((BannerSliderViewHolder) holder).definirBannerSlider(sliderModeloLista);
+                break;
             case PrincipalPaginaModelo.HORIZONTAL_PRODUTO_EXIBIR:
                 String cor = principalPaginaModeloLista.get(position).getCorDeFundo();
                 String titulo = principalPaginaModeloLista.get(position).getTitulo();
 
+                List<ListaComprasModelo> exibirTodosProdutoLista = principalPaginaModeloLista.get(position).getExibirTodosProdutosLista();
                 List<HorizontalProdutoScrollModelo> horizontalProdutoScrollModeloLista = principalPaginaModeloLista.get(position).getHorizontalProdutoScrollModeloLista();
-//                ((HorizontalProdutoViewHolder)holder).setHorizontalProdutoLayout(horizontalProdutoScrollModeloLista, titulo, cor, exibirTodosProdutoLista);
+                ((HorizontalProdutoViewHolder)holder).definirHorizontalProdutoLayout(horizontalProdutoScrollModeloLista, titulo, cor, exibirTodosProdutoLista);
                  break;
+            case PrincipalPaginaModelo.GRID_PRODUTO_EXIBIR:
+                String titulo1 = principalPaginaModeloLista.get(position).getTitulo();
+                String gridCor = principalPaginaModeloLista.get(position).getCorDeFundo();
+                List<HorizontalProdutoScrollModelo> gridProdutoScrollModeloLista = principalPaginaModeloLista.get(position).getHorizontalProdutoScrollModeloLista();
+                ((GridProdutoViewHolder) holder).setGridLayout(gridProdutoScrollModeloLista, titulo1, gridCor);
+                break;
 
             default:
         }
@@ -95,8 +112,9 @@ public class PrincipalPaginaAdapter extends RecyclerView.Adapter {
 
     @Override
     public int getItemCount() {
-        return 0;
+        return principalPaginaModeloLista.size();
     }
+
 
     public static class BannerSliderViewHolder extends RecyclerView.ViewHolder {
 
@@ -197,8 +215,36 @@ public class PrincipalPaginaAdapter extends RecyclerView.Adapter {
     }
     public class HorizontalProdutoViewHolder extends RecyclerView.ViewHolder {
 
+        private ConstraintLayout container;
+        private TextView horizontalTextoView;
+        private Button horizontalExibirTodos;
+
+
         public HorizontalProdutoViewHolder(@NonNull View itemView) {
             super(itemView);
+            container = itemView.findViewById(R.id.container);
+            horizontalTextoView = itemView.findViewById(R.id.horizontalScrollLayoutTitulo);
+            horizontalExibirTodos = itemView.findViewById(R.id.horizontalScrollLayoutBotao);
+        }
+        private void definirHorizontalProdutoLayout(List<HorizontalProdutoScrollModelo> lista, final String titulo, String cor, final List<ListaComprasModelo> exibirTodosProdutosLista) {
+            container.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor(cor)));
+            horizontalTextoView.setText(titulo);
+
+            if (lista.size() > 8) {
+                horizontalExibirTodos.setVisibility(View.VISIBLE);
+                horizontalExibirTodos.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+
+                    }
+                });
+            } else {
+                horizontalExibirTodos.setVisibility(View.INVISIBLE);
+            }
+            HorizontalProdutoScrollAdapter horizontalProdutoScrollAdapter = new HorizontalProdutoScrollAdapter(lista);
+            final LinearLayoutManager linearLayoutABC = new LinearLayoutManager(itemView.getContext());
+            linearLayoutABC.setOrientation(LinearLayoutManager.HORIZONTAL);
+
         }
     }
     public class GridProdutoViewHolder extends RecyclerView.ViewHolder {
